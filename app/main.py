@@ -20,8 +20,8 @@ def crypto_sentiment():
             continue
         seen_titles.append(post['title'])
         score = analyze_sentiment(post['text'] + " " + post['text'])
-        post["sentimet"] = score
+        post["sentiment"] = score
         analyzed_posts.append(post)
 
-        analyzed_posts.sort(key=lambda x: (x["sentiment"], x["upvotes"] + x["comments"]), reverse=True)
-        return analyzed_posts
+    analyzed_posts.sort(key=lambda x: (x["sentiment"], x["upvotes"] + x["comments"]), reverse=True)
+    return analyzed_posts

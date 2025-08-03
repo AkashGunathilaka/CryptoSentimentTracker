@@ -21,4 +21,4 @@ def get_reddit_posts(subreddit="CryptoCurrency", limit=10):
             "comments": post.num_comments,
         })
 
-        return posts
+    return posts
