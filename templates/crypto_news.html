@@ -1,0 +1,28 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Crypto Reddit Sentiment</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 20px auto; }
+        .post { border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 6px; }
+        .title { font-weight: bold; font-size: 1.3em; margin-bottom: 8px; }
+        .text { margin-bottom: 10px; white-space: pre-wrap; }
+        .meta { color: #666; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+    <h1>Crypto Reddit Sentiment</h1>
+    {% for post in posts %}
+        <div class="post">
+            <div class="title">{{ post.title }}</div>
+            <div class="text">{{ post.text[:400] }}{% if post.text|length > 400 %}...{% endif %}</div>
+            <div class="meta">👍 {{ post.upvotes }} | 💬 {{ post.comments }} | Sentiment: {{ (post.sentiment * 100) | round(2) }}%</div>
+        </div>
+    {% endfor %}
+</body>
+</html>

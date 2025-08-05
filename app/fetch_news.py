@@ -17,7 +17,7 @@ def get_reddit_posts(subreddit="CryptoCurrency", limit=10):
         posts.append({
             "title": post.title,
             "text": post.selftext,
-            "upvotes": post.up,
+            "upvotes": post.ups,
             "comments": post.num_comments,
         })
 

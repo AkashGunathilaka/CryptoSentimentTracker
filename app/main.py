@@ -2,15 +2,19 @@ from fastapi import FastAPI
 from app.fetch_news import get_reddit_posts
 from app.sentiment import analyze_sentiment
 from app.deduplication import is_duplicate
+from fastapi.templating import Jinja2Templates
+from fastapi import Request
+import os
 
 app = FastAPI()
+templates = Jinja2Templates(directory="templates")
 
 @app.get("/")
 def read_root():
     return {"Hello": "World"}
 
 @app.get("/crypto-news")
-def crypto_sentiment():
+def crypto_sentiment(request: Request):
     raw_posts = get_reddit_posts()
     seen_titles = []
     analyzed_posts = []
@@ -24,4 +28,4 @@ def crypto_sentiment():
         analyzed_posts.append(post)
 
     analyzed_posts.sort(key=lambda x: (x["sentiment"], x["upvotes"] + x["comments"]), reverse=True)
-    return analyzed_posts
+    return templates.TemplateResponse("crypto_news.html", {"request": request, "posts": analyzed_posts})
