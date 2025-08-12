@@ -6,7 +6,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <title>Crypto Reddit Sentiment</title>
+    <title>Crypto Sentiment</title>
     <style>
         body { font-family: Arial, sans-serif; max-width: 800px; margin: 20px auto; }
         .post { border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 6px; }
@@ -16,7 +16,7 @@
     </style>
 </head>
 <body>
-    <h1>Crypto Reddit Sentiment</h1>
+    <h1>Crypto Sentiment</h1>
     {% for post in posts %}
         <div class="post">
             <div class="title">{{ post.title }}</div>
@@ -24,5 +24,18 @@
             <div class="meta">👍 {{ post.upvotes }} | 💬 {{ post.comments }} | Sentiment: {{ (post.sentiment * 100) | round(2) }}%</div>
         </div>
     {% endfor %}
+
+<h2>News Posts</h2>
+{% for news in news_posts %}
+    <div class="post">
+        <div class="title">
+            <a href="{{ news.url }}" target="_blank">{{ news.title }}</a> ({{ news.source }})
+        </div>
+        <div class="text">{{ news.text[:400] }}{% if news.text|length > 400 %}...{% endif %}</div>
+        <div class="meta">Sentiment: {{ (news.sentiment * 100) | round(2) }}%</div>
+    </div>
+{% endfor %}
+
+
 </body>
 </html>

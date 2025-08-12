@@ -3,7 +3,7 @@ import praw
 import os
 from dotenv import load_dotenv
 import json
-
+import requests
 
 
 load_dotenv()
@@ -43,3 +43,17 @@ def get_reddit_posts(subreddit="CryptoCurrency", limit=10):
         print("Running in Demo Mode using sample data.")
         with open("app/sample_data.json", "r") as f:
             return json.load(f)
+
+
+def get_news_posts():
+    url = (
+        f"https://newsapi.org/v2/everything?"
+        f"q=(crypto OR cryptocurrency OR bitcoin OR ethereum)"
+        f"&language=en"
+        f"&sortBy=publishedAt"
+        f"&pageSize=20"
+        f"&apiKey={os.getenv('NEWS_API_KEY')}"
+    )
+
+    response = requests.get(url)
+    return response.json()
