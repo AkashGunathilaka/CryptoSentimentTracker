@@ -27,3 +27,6 @@ def crypto_sentiment(request: Request):
 
     analyzed_posts.sort(key=lambda x: (x["sentiment"], x["upvotes"] + x["comments"]), reverse=True)
     return templates.TemplateResponse("crypto_news.html", {"request": request, "posts": analyzed_posts})
+
+
+
