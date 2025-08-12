@@ -19,19 +19,27 @@ def get_reddit_posts(subreddit="CryptoCurrency", limit=10):
         with open("app/sample_data.json", "r") as f:
             return json.load(f)
 
-    reddit = praw.Reddit(client_id=client_id,
+
+    try:
+        reddit = praw.Reddit(client_id=client_id,
                          client_secret=client_secret,
                          user_agent=user_agent
                          )
 
 
-    posts = []
-    for post in reddit.subreddit(subreddit).hot(limit=limit):
-        posts.append({
-            "title": post.title,
-            "text": post.selftext,
-            "upvotes": post.ups,
-            "comments": post.num_comments,
-        })
+        posts = []
+        for post in reddit.subreddit(subreddit).hot(limit=limit):
+            posts.append({
+                "title": post.title,
+                "text": post.selftext,
+                "upvotes": post.ups,
+                "comments": post.num_comments,
+            })
 
-    return posts
+        return posts
+
+    except Exception as e:
+        print(f"Error connecting to Reddit API: {e}")
+        print("Running in Demo Mode using sample data.")
+        with open("app/sample_data.json", "r") as f:
+            return json.load(f)
