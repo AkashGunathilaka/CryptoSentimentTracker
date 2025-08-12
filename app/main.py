@@ -9,11 +9,9 @@ import os
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
 
-@app.get("/crypto-news")
+
+@app.get("/")
 def crypto_sentiment(request: Request):
     raw_posts = get_reddit_posts()
     seen_titles = []
